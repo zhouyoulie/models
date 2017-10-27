@@ -26,6 +26,21 @@ sh_binary(
     ],
 )
 
+py_binary(
+    name = "build_aic_data",
+    srcs = [
+        "data/build_aic_data.py",
+    ],
+)
+
+sh_binary(
+    name = "preprocess_aic",
+    srcs = ["data/preprocess_aic.sh"],
+    data = [
+        ":build_aic_data",
+    ],
+)
+
 py_library(
     name = "configuration",
     srcs = ["configuration.py"],

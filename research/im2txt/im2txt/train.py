@@ -98,6 +98,9 @@ def main(unused_argv):
     # Set up the Saver for saving and restoring model checkpoints.
     saver = tf.train.Saver(max_to_keep=training_config.max_checkpoints_to_keep)
 
+  config = tf.ConfigProto()
+  config.gpu_options.allow_growth = True
+
   # Run training.
   tf.contrib.slim.learning.train(
       train_op,
@@ -107,6 +110,7 @@ def main(unused_argv):
       global_step=model.global_step,
       number_of_steps=FLAGS.number_of_steps,
       init_fn=model.init_fn,
+      session_config=config,
       saver=saver)
 
 
