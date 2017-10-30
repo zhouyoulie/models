@@ -396,7 +396,7 @@ def _process_caption(caption):
   #print("="*20) 
   tokenized_caption = [FLAGS.start_word]
   #tokenized_caption.extend(nltk.tokenize.word_tokenize(caption.lower()))
-  tokenized_caption.extend(list(jieba.cut_for_search(caption)))
+  tokenized_caption.extend(list(jieba.cut(caption, cut_all=False)))
   tokenized_caption.append(FLAGS.end_word)
   return tokenized_caption
 

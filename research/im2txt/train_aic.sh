@@ -2,7 +2,7 @@ AIC_DIR="/data/ylie_app/aic/data"
 INCEPTION_CHECKPOINT="/data/ylie_app/aic/model/inception_v3.ckpt"
 MODEL_DIR="/data/ylie_app/aic/model"
 
-cd /data/ylie_app/models/im2txt
+cd /data/ylie_app/tf_ylie_models/research/im2txt
 bazel build -c opt //im2txt/...
 
 # Run the training script.

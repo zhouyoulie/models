@@ -77,7 +77,10 @@ def main(_):
       for i, caption in enumerate(captions):
         # Ignore begin and end words.
         sentence = [vocab.id_to_word(w) for w in caption.sentence[1:-1]]
-        sentence = " ".join(sentence)
+        #print("="*20)
+        #print(sentence)
+        #print("="*20)
+        sentence = "".join(sentence)
         print("  %d) %s (p=%f)" % (i, sentence, math.exp(caption.logprob)))
 
 

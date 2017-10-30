@@ -56,7 +56,7 @@ class ModelConfig(object):
     self.num_preprocess_threads = 4
 
     # Batch size.
-    self.batch_size = 32
+    self.batch_size = 50
 
     # File containing an Inception v3 checkpoint to initialize the variables
     # of the Inception model. Must be provided when starting training for the
@@ -102,3 +102,9 @@ class TrainingConfig(object):
 
     # How many model checkpoints to keep.
     self.max_checkpoints_to_keep = 5
+
+    # How often, in seconds, to save summaries.
+    self.save_summaries_secs = 60
+
+    # How often, in seconds, to save the model to `logdir`.
+    self.save_interval_secs = 120

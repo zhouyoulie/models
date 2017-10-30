@@ -153,8 +153,8 @@ def main(_):
     # Define the metrics:
     names_to_values, names_to_updates = slim.metrics.aggregate_metric_map({
         'Accuracy': slim.metrics.streaming_accuracy(predictions, labels),
-        'Recall_5': slim.metrics.streaming_recall_at_k(
-            logits, labels, 5),
+        'Recall_2': slim.metrics.streaming_recall_at_k(
+            logits, labels, 2),
     })
 
     # Print the summaries to screen.
@@ -176,7 +176,7 @@ def main(_):
     else:
       checkpoint_path = FLAGS.checkpoint_path
 
-    tf.logging.info('Evaluating %s' % checkpoint_path)
+    tf.logging.info('[ylie]Evaluating %s' % checkpoint_path)
 
     slim.evaluation.evaluate_once(
         master=FLAGS.master,

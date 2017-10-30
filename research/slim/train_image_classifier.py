@@ -195,6 +195,10 @@ tf.app.flags.DEFINE_integer(
 tf.app.flags.DEFINE_integer('max_number_of_steps', None,
                             'The maximum number of training steps.')
 
+tf.app.flags.DEFINE_boolean(
+    'wd_snapshot_flow', False, 'whether it is wd flow or not.')
+
+
 #####################
 # Fine-Tuning Flags #
 #####################
@@ -434,9 +438,9 @@ def main(_):
       [image, label] = provider.get(['image', 'label'])
       label -= FLAGS.labels_offset
 
-      train_image_size = FLAGS.train_image_size or network_fn.default_image_size
-
-      image = image_preprocessing_fn(image, train_image_size, train_image_size)
+      train_image_height = FLAGS.train_image_size or network_fn.default_image_size
+      train_image_weight = FLAGS.train_image_size or network_fn.default_image_size
+      image = image_preprocessing_fn(image, train_image_height, train_image_weight)
 
       images, labels = tf.train.batch(
           [image, label],
@@ -553,6 +557,9 @@ def main(_):
     summary_op = tf.summary.merge(list(summaries), name='summary_op')
 
 
+
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
     ###########################
     # Kicks off the training. #
     ###########################
@@ -562,6 +569,7 @@ def main(_):
         master=FLAGS.master,
         is_chief=(FLAGS.task == 0),
         init_fn=_get_init_fn(),
+        session_config=config,
         summary_op=summary_op,
         number_of_steps=FLAGS.max_number_of_steps,
         log_every_n_steps=FLAGS.log_every_n_steps,
